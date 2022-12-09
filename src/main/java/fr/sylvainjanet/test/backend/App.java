@@ -10,23 +10,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * App.
+ *
+ * @author Sylvain Janet
+ *
+ */
 @Controller
 @EnableAutoConfiguration
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class App extends SpringBootServletInitializer {
-	@RequestMapping("/hello")
-	@ResponseBody
-	String home() {
-		return "Hello World !!  !!";
-	}
+  @RequestMapping("/hello")
+  @ResponseBody
+  String home() {
+    return "Hello World !!  !!";
+  }
 
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(App.class, args);
-	}
+  public static void main(String[] args) throws Exception {
+    SpringApplication.run(App.class, args);
+  }
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(App.class);
-	}
+  @Override
+  protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+    return builder.sources(App.class);
+  }
 
 }
