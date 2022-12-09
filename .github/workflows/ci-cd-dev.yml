@@ -21,7 +21,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          JAVA_FILE_NAME: /.checkstyle
+          JAVA_FILE_NAME: checkstyle.xml
   
   build:
     runs-on: ubuntu-latest
