@@ -54,19 +54,15 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
           cache: maven
-      - name: Test app  
-        run: mvn test
       - name: Analyze with SonarCloud
-        # You can pin the exact commit or the version.
-        # uses: SonarSource/sonarcloud-github-action@de2e56b42aa84d0b1c5b622644ac17e505c9a049
-        uses: SonarSource/sonarcloud-github-action@de2e56b42aa84d0b1c5b622644ac17e505c9a049
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
-        with:
-          args:
-            -Dsonar.projectKey=SylvainJanet_sampleJavaApp
-            -Dsonar.organization=sylvainjanet
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+        run: mvn verify sonar:sonar \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.organization=sylvainjanet \
+          -Dsonar.projectKey=SylvainJanet_sampleJavaApp \
+          -Dsonar.java.source=1.8
             
   check_analysis_sonarcloud:
     needs: analysis_sonarcloud
