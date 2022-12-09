@@ -8,6 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -25,7 +26,7 @@ public class App extends SpringBootServletInitializer {
    *
    * @return hello
    */
-  @RequestMapping("/hello")
+  @RequestMapping(path = "/hello", method = RequestMethod.GET)
   @ResponseBody
   String home() {
     return "Hello World !!  !!";
@@ -37,7 +38,7 @@ public class App extends SpringBootServletInitializer {
    * @param args args
    * @throws Exception exception
    */
-  public static void main(final String[] args) throws Exception {
+  public static void main(final String[] args) {
     SpringApplication.run(App.class, args);
   }
 

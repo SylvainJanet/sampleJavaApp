@@ -22,22 +22,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  // @Bean
-  // public CorsConfigurationSource corsConfigurationSource() {
-  // CorsConfiguration configuration = new CorsConfiguration();
-  // configuration.setAllowedOrigins(Arrays.asList("*"));
-  // configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT",
-  // "PATCH", "DELETE", "OPTIONS"));
-  // configuration.setAllowedHeaders(Arrays.asList("authorization",
-  // "content-type", "x-auth-token"));
-  // configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
-  // UrlBasedCorsConfigurationSource source =
-  // new UrlBasedCorsConfigurationSource();
-  // source.registerCorsConfiguration("/**", configuration);
-  //
-  // return source;
-  // }
-
   /**
    * corsConfigurationSource.
    *
@@ -61,10 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(final HttpSecurity http) throws Exception {
 
-    // http.csrf().disable().authorizeRequests().antMatchers("/**").permitAll();
-    // http.authorizeRequests().anyRequest();
-    // http.csrf().disable();
-    // http.httpBasic().disable();
     http.cors();
   }
 

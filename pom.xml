@@ -12,7 +12,6 @@
 
 	<name>test.backend</name>
 	<description>A simple test.backend</description>
-	<!-- FIXME change it to the project's website -->
 	<url>http://server.sylvainjanet.fr</url>
 
 	<parent>
@@ -107,10 +106,7 @@
 			<plugin>
 				<groupId>org.sonarsource.scanner.maven</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
-				</plugin><!-- <plugin> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-maven-plugin</artifactId> 
-				<configuration> <mainClass>controller.HelloWorldController</mainClass> <layout>WAR</layout> 
-				</configuration> <executions> <execution> <goals> <goal>repackage</goal> 
-				</goals> </execution> </executions> </plugin> -->
+				</plugin>
 		</plugins>
 	</build>
 
