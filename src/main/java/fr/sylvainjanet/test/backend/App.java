@@ -7,26 +7,47 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * App.
+ *
+ * @author Sylvain Janet
+ *
+ */
 @Controller
 @EnableAutoConfiguration
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class App extends SpringBootServletInitializer {
-	@RequestMapping("/hello")
-	@ResponseBody
-	String home() {
-		return "Hello World !!  !!";
-	}
+  /**
+   * home.
+   *
+   * @return hello
+   */
+  @GetMapping("/hello")
+  @ResponseBody
+  String home() {
+    return "Hello World !!  !!";
+  }
 
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(App.class, args);
-	}
+  /**
+   * Main.
+   *
+   * @param args args
+   * @throws Exception exception
+   */
+  public static void main(final String[] args) {
+    SpringApplication.run(App.class, args);
+  }
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(App.class);
-	}
+  /**
+   * configure.
+   */
+  @Override
+  protected SpringApplicationBuilder configure(
+      final SpringApplicationBuilder builder) {
+    return builder.sources(App.class);
+  }
 
 }

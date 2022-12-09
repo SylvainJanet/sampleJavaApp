@@ -1,8 +1,8 @@
-name: CI-CD-dev
+name: CI-CD-main
 on: 
   push:  
     branches:  
-      - dev
+      - main
     
 permissions:
   pull-requests: read # allows SonarCloud to decorate PRs with analysis results
@@ -69,7 +69,7 @@ jobs:
       id: httpRequest
       uses: fjogeleit/http-request-action@v1
       with:
-        url: 'https://sonarcloud.io/api/qualitygates/project_status?projectKey=SylvainJanet_sampleJavaApp&branch=dev'
+        url: 'https://sonarcloud.io/api/qualitygates/project_status?projectKey=SylvainJanet_sampleJavaApp&branch=main'
         method: 'GET'
     - name: Show Response
       run: |
@@ -136,7 +136,6 @@ jobs:
   
   build:
     needs: [lint, analyse_QL, check_analysis_sonarcloud]
-    if: always()
     runs-on: ubuntu-latest
     permissions: # The Dependency Submission API requires write permission
       contents: write
@@ -166,7 +165,6 @@ jobs:
           
   deploy:  
     needs : [build]
-    if: always()
     runs-on: ubuntu-latest  
   
     steps:
@@ -179,7 +177,7 @@ jobs:
           path: '.'
       - name: rename war file
         run: |
-          mv test.backend-0.0.1-SNAPSHOT.war test-dev.war
+          mv test.backend-0.0.1-SNAPSHOT.war test.war
       - name: copy file via ssh key
         uses: appleboy/scp-action@master
         with:
@@ -187,5 +185,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
-          source: "./test-dev.war"
+          source: "./test.war"
           target: "/home/tomcat/apache-tomcat-9.0.69/webapps"
