@@ -50,7 +50,7 @@ jobs:
         uses: actions/download-artifact@v3  
         with:  
           name: sample-java-app-${{ env.GITHUB_REF_SLUG }}-${{ github.run_id }}-${{ github.run_number }}  
-          path: './target'
+          path: '.'
       - name: copy file via ssh key
         uses: appleboy/scp-action@master
         with:
@@ -58,5 +58,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
-          source: "./target/test.backend-0.0.1-SNAPSHOT.war"
+          source: "./test.backend-0.0.1-SNAPSHOT.war"
           target: "/home/tomcat/apache-tomcat-9.0.69/webapps"
