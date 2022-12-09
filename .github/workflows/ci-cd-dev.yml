@@ -52,7 +52,7 @@ jobs:
         path: ./target
           
   deploy:  
-    needs : build
+    needs : [lint, build]
     if: always()
     runs-on: ubuntu-latest  
   
