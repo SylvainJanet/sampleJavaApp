@@ -144,6 +144,7 @@ jobs:
   
   build:
     needs: [lint, analyse_QL, check_analysis_sonarcloud]
+    if: always()
     runs-on: ubuntu-latest
     permissions: # The Dependency Submission API requires write permission
       contents: write
