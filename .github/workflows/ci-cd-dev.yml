@@ -59,7 +59,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
         run: mvn verify sonar:sonar \
-          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.host.url='https://sonarcloud.io' \
           -Dsonar.organization=sylvainjanet \
           -Dsonar.projectKey=SylvainJanet_sampleJavaApp \
           -Dsonar.java.source=1.8
