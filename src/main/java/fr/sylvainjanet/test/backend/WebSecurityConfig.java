@@ -26,30 +26,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   // public CorsConfigurationSource corsConfigurationSource() {
   // CorsConfiguration configuration = new CorsConfiguration();
   // configuration.setAllowedOrigins(Arrays.asList("*"));
-  // configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE",
-  // "OPTIONS"));
-  // configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type",
-  // "x-auth-token"));
+  // configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT",
+  // "PATCH", "DELETE", "OPTIONS"));
+  // configuration.setAllowedHeaders(Arrays.asList("authorization",
+  // "content-type", "x-auth-token"));
   // configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
-  // UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+  // UrlBasedCorsConfigurationSource source =
+  // new UrlBasedCorsConfigurationSource();
   // source.registerCorsConfiguration("/**", configuration);
   //
   // return source;
   // }
 
+  /**
+   * corsConfigurationSource.
+   *
+   * @return config
+   */
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
     configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500",
         "https://sylvainjanet.fr", "https://dev.sylvainjanet.fr"));
     configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    UrlBasedCorsConfigurationSource source =
+        new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
     return source;
   }
 
+  /**
+   * configure.
+   */
   @Override
-  protected void configure(HttpSecurity http) throws Exception {
+  protected void configure(final HttpSecurity http) throws Exception {
 
     // http.csrf().disable().authorizeRequests().antMatchers("/**").permitAll();
     // http.authorizeRequests().anyRequest();

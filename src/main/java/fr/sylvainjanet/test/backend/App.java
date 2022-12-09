@@ -20,18 +20,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @EnableAutoConfiguration
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class App extends SpringBootServletInitializer {
+  /**
+   * home.
+   *
+   * @return hello
+   */
   @RequestMapping("/hello")
   @ResponseBody
   String home() {
     return "Hello World !!  !!";
   }
 
-  public static void main(String[] args) throws Exception {
+  /**
+   * Main.
+   *
+   * @param args args
+   * @throws Exception exception
+   */
+  public static void main(final String[] args) throws Exception {
     SpringApplication.run(App.class, args);
   }
 
+  /**
+   * configure.
+   */
   @Override
-  protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+  protected SpringApplicationBuilder configure(
+      final SpringApplicationBuilder builder) {
     return builder.sources(App.class);
   }
 
