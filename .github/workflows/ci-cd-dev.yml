@@ -12,6 +12,8 @@ jobs:
   
   build:
     runs-on: ubuntu-latest
+    permissions: # The Dependency Submission API requires write permission
+      contents: write
     steps:
     - name: Checkout source code  
       uses: actions/checkout@v3
@@ -47,14 +49,17 @@ jobs:
       - name: Download artifact  
         uses: actions/download-artifact@v3  
         with:  
-          name: personal-website-angular-${{ env.GITHUB_REF_SLUG }}-${{ github.run_id }}-${{ github.run_number }}  
-          path: './target'
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@v0.1.6
+          name: sample-java-app-${{ env.GITHUB_REF_SLUG }}-${{ github.run_id }}-${{ github.run_number }}  
+          path: '.'
+      - name: rename war file
+        run: |
+          mv test.backend-0.0.1-SNAPSHOT.war test-dev.war
+      - name: copy file via ssh key
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          script: |
-            ls
+          key: ${{ secrets.KEY }}
+          source: "./test-dev.war"
+          target: "/home/tomcat/apache-tomcat-9.0.69/webapps"
