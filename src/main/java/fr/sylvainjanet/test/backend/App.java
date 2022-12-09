@@ -7,8 +7,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -26,7 +25,7 @@ public class App extends SpringBootServletInitializer {
    *
    * @return hello
    */
-  @RequestMapping(path = "/hello", method = RequestMethod.GET)
+  @GetMapping("/hello")
   @ResponseBody
   String home() {
     return "Hello World !!  !!";
