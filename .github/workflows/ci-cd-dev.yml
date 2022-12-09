@@ -51,6 +51,9 @@ jobs:
         with:  
           name: sample-java-app-${{ env.GITHUB_REF_SLUG }}-${{ github.run_id }}-${{ github.run_number }}  
           path: '.'
+      - name: rename war file
+        run: |
+          mv test.backend-0.0.1-SNAPSHOT.war test.war
       - name: copy file via ssh key
         uses: appleboy/scp-action@master
         with:
