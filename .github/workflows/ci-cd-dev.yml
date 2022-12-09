@@ -54,5 +54,5 @@ jobs:
       - name: deploy
         run: |
           ls -al
-          sshpass -p '${{secrets.PASSWORD}}' scp -r ${{secrets.USERNAME}}@${{secrets.HOST}}:/home/tomcat/apache-tomcat-9.0.69/webapps /target/test.backend-0.0.1-SNAPSHOT.war
+          scp -r ${{secrets.USERNAME}}@${{secrets.HOST}}:/home/tomcat/apache-tomcat-9.0.69/webapps /target/test.backend-0.0.1-SNAPSHOT.war
         
