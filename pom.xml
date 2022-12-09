@@ -96,23 +96,10 @@
 		</pluginManagement>
 
 
-		<!--  <plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>controller.HelloWorldController</mainClass>
-					<layout>WAR</layout>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>-->
+		<!-- <plugins> <plugin> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-maven-plugin</artifactId> 
+			<configuration> <mainClass>controller.HelloWorldController</mainClass> <layout>WAR</layout> 
+			</configuration> <executions> <execution> <goals> <goal>repackage</goal> 
+			</goals> </execution> </executions> </plugin> </plugins> -->
 	</build>
 
 	<reporting>
