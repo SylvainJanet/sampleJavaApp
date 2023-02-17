@@ -28,7 +28,7 @@ public class App extends SpringBootServletInitializer {
   @GetMapping("/hello")
   @ResponseBody
   String home() {
-    return "Hello World !!  !! - depuis PC fixe :)";
+    return "Hello World !!  !! - depuis PC fixe :) - new tomcat version ?";
   }
 
   /**
