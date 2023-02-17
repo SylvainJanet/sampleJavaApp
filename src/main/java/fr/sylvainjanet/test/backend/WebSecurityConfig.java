@@ -21,7 +21,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 
-  /** cors Configuration.
+  /**
+   * cors Configuration.
    *
    * @return cors Configuration
    */
@@ -39,17 +40,4 @@ public class WebSecurityConfig {
     source.registerCorsConfiguration("/**", corsConfig);
     return source;
   }
-
 }
-// public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//
-// /**
-// * configure.
-// */
-// @Override
-// protected void configure(final HttpSecurity http) throws Exception {
-//
-// http.cors();
-// }
-//
-// }
