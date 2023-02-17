@@ -4,7 +4,6 @@ import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -20,7 +19,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
  */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 
   /**
@@ -32,8 +30,9 @@ public class WebSecurityConfig {
   @Primary
   CorsConfigurationSource corsConfiguration() {
     CorsConfiguration corsConfig = new CorsConfiguration();
-    corsConfig.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500",
-        "https://sylvainjanet.fr", "https://dev.sylvainjanet.fr"));
+    corsConfig.setAllowedOrigins(
+        Arrays.asList("http://127.0.0.1:5500", "https://127.0.0.1:5500",
+            "https://sylvainjanet.fr", "https://dev.sylvainjanet.fr"));
     corsConfig.setAllowedMethods(Arrays.asList("GET", "POST"));
     corsConfig.setAllowCredentials(true);
 
@@ -52,7 +51,8 @@ public class WebSecurityConfig {
    */
   @Bean
   SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-    http.authorizeRequests().anyRequest().anonymous();
+    http.cors().configurationSource(corsConfiguration()).and()
+        .authorizeRequests().anyRequest().anonymous();
     return http.build();
   }
 }
