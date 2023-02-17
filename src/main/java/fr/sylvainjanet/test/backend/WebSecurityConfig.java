@@ -3,10 +3,11 @@ package fr.sylvainjanet.test.backend;
 import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -20,32 +21,38 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {
 
   /**
-   * corsConfigurationSource.
+   * cors Configuration.
    *
-   * @return config
+   * @return cors Configuration
    */
   @Bean
-  CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500",
+  @Primary
+  CorsConfigurationSource corsConfiguration() {
+    CorsConfiguration corsConfig = new CorsConfiguration();
+    corsConfig.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500",
         "https://sylvainjanet.fr", "https://dev.sylvainjanet.fr"));
-    configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
+    corsConfig.setAllowedMethods(Arrays.asList("GET", "POST"));
+    corsConfig.setAllowCredentials(true);
+
     UrlBasedCorsConfigurationSource source =
         new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
+    source.registerCorsConfiguration("/**", corsConfig);
     return source;
   }
 
   /**
-   * configure.
+   * Set security.
+   *
+   * @param http the http object
+   * @return the filter chain
+   * @throws Exception exception
    */
-  @Override
-  protected void configure(final HttpSecurity http) throws Exception {
-
-    http.cors();
+  @Bean
+  SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+    http.authorizeRequests().anyRequest().anonymous();
+    return http.build();
   }
-
 }
