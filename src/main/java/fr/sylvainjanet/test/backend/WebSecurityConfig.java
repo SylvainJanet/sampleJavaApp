@@ -28,7 +28,7 @@ public class WebSecurityConfig {
    */
   @Bean
   @Primary
-  private CorsConfigurationSource corsConfiguration() {
+  CorsConfigurationSource corsConfiguration() {
     CorsConfiguration corsConfig = new CorsConfiguration();
     corsConfig.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500",
         "https://sylvainjanet.fr", "https://dev.sylvainjanet.fr"));
