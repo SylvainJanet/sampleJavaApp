@@ -186,4 +186,4 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
           source: "./test.war"
-          target: "/home/tomcat/apache-tomcat-9.0.71/webapps"
+          target: ${{env.TOMCAT_PATH}}
