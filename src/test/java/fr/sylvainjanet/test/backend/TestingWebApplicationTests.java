@@ -1,5 +1,6 @@
 package fr.sylvainjanet.test.backend;
 
+import static org.junit.Assert.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -10,14 +11,15 @@ import org.springframework.boot.test.context.SpringBootTest;
  *
  */
 @SpringBootTest
-public class TestingWebApplicationTests {
+class TestingWebApplicationTests {
 
   /**
    * Test if the application context can start.
    */
   @Test
-  public void contextLoads() {
+  void contextLoads() {
     // nothing to do
+    assertTrue(true);
   }
 
 }
