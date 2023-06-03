@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!DOCTYPE PUBLIC>
+      
 <checkstyle-configurations file-format-version="5.0.0" default-check-configuration="Google Checks - modified">
   <check-configuration name="Google Checks - modified" location="internal_config_1685800014613.xml" type="internal" description="Checkstyle configuration that checks the Google coding conventions from Google Java Style that can be found at https://google.github.io/styleguide/javaguide.html."/>
   <check-configuration name="Sun Checks - modified" location="internal_config_1685800205053.xml" type="internal" description="Checkstyle configuration that checks the sun coding conventions."/>
