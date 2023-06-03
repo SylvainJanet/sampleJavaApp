@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Checkout source code  
         uses: actions/checkout@v
-      - name: Lint Code Base
+      - name: Lint Code Base - google
         uses: github/super-linter@v4
         env:
           VALIDATE_ALL_CODEBASE: true
@@ -25,7 +25,7 @@ jobs:
           JAVA_FILE_NAME: checkstyle-google-modified.xml
           VALIDATE_MARKDOWN: false
           VALIDATE_YAML: false
-      - name: Lint Code Base
+      - name: Lint Code Base - sun
         uses: github/super-linter@v4
         env:
           VALIDATE_ALL_CODEBASE: true
