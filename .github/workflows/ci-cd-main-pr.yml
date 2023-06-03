@@ -21,7 +21,7 @@ jobs:
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           #LINTER_RULES_PATH: /
-          #JAVA_FILE_NAME: checkstyle.xml
+          JAVA_FILE_NAME: .checkstyle
           VALIDATE_MARKDOWN: false
           VALIDATE_YAML: false
           
