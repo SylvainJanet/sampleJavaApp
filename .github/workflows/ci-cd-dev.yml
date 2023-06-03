@@ -15,14 +15,16 @@ jobs:
     steps:
       - name: Checkout source code  
         uses: actions/checkout@v3
+      - name : LS
+        run: ls
       - name: Lint Code Base
         uses: github/super-linter@v4
         env:
           VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          #LINTER_RULES_PATH: /
-          #JAVA_FILE_NAME: checkstyle.xml
+          LINTER_RULES_PATH: /
+          JAVA_FILE_NAME: checkstyle-config.xml
           VALIDATE_MARKDOWN: false
           VALIDATE_YAML: false
           
