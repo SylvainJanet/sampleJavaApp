@@ -1,35 +1,41 @@
 package fr.sylvainjanet.test.backend;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
 
 /**
- * Unit test for simple App.
+ * Test the app.
+ * 
+ * @author Sylvain
+ *
  */
-public class AppTest extends TestCase {
-  /**
-   * Create the test case.
-   *
-   * @param testName name of the test case
-   */
-  public AppTest(final String testName) {
-    super(testName);
-  }
+@SpringBootTest
+@AutoConfigureMockMvc
+public class AppTest {
 
   /**
-   * Suite of tests being tested.
-   *
-   * @return the suite of tests being tested
+   * Autowired mockMvc.
    */
-  public static Test suite() {
-    return new TestSuite(AppTest.class);
-  }
+  @Autowired
+  private MockMvc mockMvc;
 
   /**
-   * Rigourous Test :-).
+   * Checks the /hello.
+   *
+   * @throws Exception if error occurs.
    */
-  public void testApp() {
-    assertTrue(true);
+  @Test
+  public void testHello() throws Exception {
+    this.mockMvc.perform(get("/hello")).andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(content().string(containsString("Hello World !")));
   }
 }
