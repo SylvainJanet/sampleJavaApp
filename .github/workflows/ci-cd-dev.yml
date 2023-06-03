@@ -14,17 +14,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code  
-        uses: actions/checkout@v3
-      - name : LS
-        run: ls
-      - name: Lint Code Base
+        uses: actions/checkout@v
+      - name: Lint Code Base - google
         uses: github/super-linter@v4
         env:
           VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LINTER_RULES_PATH: /
-          JAVA_FILE_NAME: checkstyle-config.xml
+          JAVA_FILE_NAME: checkstyle-google-modified.xml
+          VALIDATE_MARKDOWN: false
+          VALIDATE_YAML: false
+      - name: Lint Code Base - sun
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          DEFAULT_BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LINTER_RULES_PATH: /
+          JAVA_FILE_NAME: checkstyle-sun-modified.xml
           VALIDATE_MARKDOWN: false
           VALIDATE_YAML: false
           
