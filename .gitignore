@@ -3,7 +3,6 @@ target/
 target-coverage/
 target-dev/
 target-prod/
-.metadata/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
