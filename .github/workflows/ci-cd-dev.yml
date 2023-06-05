@@ -50,7 +50,7 @@ jobs:
       - name: Create SQL user
         run: mysql --user=root --password=root --execute="CREATE USER 'sylvainjanet-staging-test'@'localhost' IDENTIFIED BY '${{ secrets.MYSQL_STAGING_TESTS }}';"
       - name: Create database
-        run: mysql --user=root --password=root --execute="CREATE DATABASE testapp_staging_tests;"
+        run: mysql --user=root --password=root --execute="CREATE DATABASE testapp_staging_tests CHARACTER SET utf8 COLLATE utf8mb4_unicode_520_ci;"
       - name: Grant privileges to user
         run: mysql --user=root --password=root --execute="GRANT ALL PRIVILEGES ON testapp_staging_tests.* TO 'sylvainjanet-staging-test'@'localhost';"
       - name: List existing SQL databases
@@ -89,7 +89,7 @@ jobs:
       - name: Create SQL user
         run: mysql --user=root --password=root --execute="CREATE USER 'sylvainjanet-staging-test'@'localhost' IDENTIFIED BY '${{ secrets.MYSQL_STAGING_TESTS }}';"
       - name: Create database
-        run: mysql --user=root --password=root --execute="CREATE DATABASE testapp_staging_tests;"
+        run: mysql --user=root --password=root --execute="CREATE DATABASE testapp_staging_tests CHARACTER SET utf8 COLLATE utf8mb4_unicode_520_ci;"
       - name: Grant privileges to user
         run: mysql --user=root --password=root --execute="GRANT ALL PRIVILEGES ON testapp_staging_tests.* TO 'sylvainjanet-staging-test'@'localhost';"
       - name: List existing SQL databases
@@ -207,7 +207,7 @@ jobs:
       - name: Create SQL user
         run: mysql --user=root --password=root --execute="CREATE USER 'sylvainjanet-staging-test'@'localhost' IDENTIFIED BY '${{ secrets.MYSQL_STAGING_TESTS }}';"
       - name: Create database
-        run: mysql --user=root --password=root --execute="CREATE DATABASE testapp_staging_tests;"
+        run: mysql --user=root --password=root --execute="CREATE DATABASE testapp_staging_tests CHARACTER SET utf8 COLLATE utf8mb4_unicode_520_ci;"
       - name: Grant privileges to user
         run: mysql --user=root --password=root --execute="GRANT ALL PRIVILEGES ON testapp_staging_tests.* TO 'sylvainjanet-staging-test'@'localhost';"
       - name: List existing SQL databases
