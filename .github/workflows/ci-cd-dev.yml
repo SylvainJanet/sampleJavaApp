@@ -56,7 +56,7 @@ jobs:
       - name: List existing SQL databases
         run: mysql --user=root --password=root --execute="show databases;"
       - name: Verify MySQL user
-        run: mysql --user=root --password= ${{ secrets.MYSQL_STAGING_TESTS }}
+        run: mysql --user=root --password=${{ secrets.MYSQL_STAGING_TESTS }}
       - name: Checkout source code  
         uses: actions/checkout@v3
       - name: Set up JDK 8
