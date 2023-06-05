@@ -266,5 +266,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
-          source: "./test-staging.war"
+          source: "./test-dev.war"
           target: ${{secrets.TOMCAT_PATH}}
