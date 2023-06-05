@@ -36,7 +36,21 @@ jobs:
           VALIDATE_JAVA: true
           
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          # The MySQL docker container requires these environment variables to be set
+          # so we can create and migrate the test database.
+          # See: https://hub.docker.com/_/mysql
+          MYSQL_USER: sylvainjanet-staging-test
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_STAGING_TESTS }}
+          MYSQL_DATABASE: testapp_staging_tests
+        ports:
+          # Opens port 3306 on service container and host
+          # https://docs.github.com/en/actions/using-containerized-services/about-service-containers
+          - 3306:3306
     steps:
       - name: Checkout source code  
         uses: actions/checkout@v3
