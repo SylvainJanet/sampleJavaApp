@@ -50,14 +50,14 @@ jobs:
           mysql database: 'testapp_staging_tests' # Optional, default value is "test". The specified database which will be create
           #mysql root password: rootisntused # Required if "mysql user" is empty, default is empty. The root superuser password
           mysql user: 'sylvainjanet-staging-test' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
-          mysql password: '${{ secrets.MYSQL_STAGING_TESTS }}' # Required if "mysql user" exists. The password for the "mysql user"
+          mysql password: ${{ secrets.MYSQL_STAGING_TESTS }} # Required if "mysql user" exists. The password for the "mysql user"
       
       - name: Start MySQL
         run: sudo service mysql restart
       - name: Verify MySQL
-        run: mysql --user=sylvainjanet-staging-test --password='${{ secrets.MYSQL_STAGING_TESTS }}'
+        run: mysql --user=sylvainjanet-staging-test --password=${{ secrets.MYSQL_STAGING_TESTS }}
       - name: List existing SQL databases
-        run: mysql --user=sylvainjanet-staging-test --password='${{ secrets.MYSQL_STAGING_TESTS }}' --execute="show databases;"
+        run: mysql --user=sylvainjanet-staging-test --password=${{ secrets.MYSQL_STAGING_TESTS }} --execute="show databases;"
       - name: Checkout source code  
         uses: actions/checkout@v3
       - name: Set up JDK 8
