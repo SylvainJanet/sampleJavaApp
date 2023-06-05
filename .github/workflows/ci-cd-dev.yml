@@ -54,6 +54,10 @@ jobs:
       
       - name: Start MySQL
         run: sudo service mysql restart
+      - name: Verify MySQL
+        run: mysql --user=sylvainjanet-staging-test --password='${{ secrets.MYSQL_STAGING_TESTS }}'
+      - name: List existing SQL databases
+        run: mysql --user=sylvainjanet-staging-test --password='${{ secrets.MYSQL_STAGING_TESTS }}' --execute="show databases;"
       - name: Checkout source code  
         uses: actions/checkout@v3
       - name: Set up JDK 8
