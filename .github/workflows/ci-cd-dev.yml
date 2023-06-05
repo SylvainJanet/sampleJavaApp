@@ -37,21 +37,18 @@ jobs:
           
   test:
     runs-on: ubuntu-latest 
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          # The MySQL docker container requires these environment variables to be set
-          # so we can create and migrate the test database.
-          # See: https://hub.docker.com/_/mysql
-          MYSQL_USER: sylvainjanet-staging-test
-          MYSQL_PASSWORD: ${{ secrets.MYSQL_STAGING_TESTS }}
-          MYSQL_DATABASE: testapp_staging_tests
-        ports:
-          # Opens port 3306 on service container and host
-          # https://docs.github.com/en/actions/using-containerized-services/about-service-containers
-          - 3306:3306
     steps:
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          #host port: 3800 # Optional, default value is 3306. The port of host
+          #container port: 3307 # Optional, default value is 3306. The port of container
+          #character set server: 'utf8' # Optional, default value is 'utf8mb4'. The '--character-set-server' option for mysqld
+          collation server: 'utf8mb4_unicode_520_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
+          #mysql version: '8.0' # Optional, default value is "latest". The version of the MySQL
+          mysql database: 'testapp_staging_tests' # Optional, default value is "test". The specified database which will be create
+          #mysql root password: ${{ secrets.RootPassword }} # Required if "mysql user" is empty, default is empty. The root superuser password
+          mysql user: 'sylvainjanet-staging-test' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
+          mysql password: ${{ secrets.MYSQL_STAGING_TESTS }} # Required if "mysql user" exists. The password for the "mysql user"
       - name: Checkout source code  
         uses: actions/checkout@v3
       - name: Set up JDK 8
