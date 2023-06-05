@@ -37,8 +37,10 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
           cache: maven
-      - name: Test app  
-        run: mvn test
+      - name: Test app   
+        env: 
+          JASYPT_ENCRYPTOR_PWD_DIST: ${{ secrets.JASYPT_ENCRYPTOR_PWD_DIST }}
+        run: mvn -Pcoverage-prod test
         
   analysis_sonarcloud:
     needs: test
@@ -57,8 +59,9 @@ jobs:
       - name: Analyze with SonarCloud
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
-        run: mvn verify sonar:sonar "-Dsonar.host.url=https://sonarcloud.io" -Dsonar.organization=sylvainjanet -Dsonar.projectKey=SylvainJanet_sampleJavaApp -Dsonar.java.source=1.8
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          JASYPT_ENCRYPTOR_PWD_DIST: ${{ secrets.JASYPT_ENCRYPTOR_PWD_DIST }}
+        run: mvn -Pcoverage-prod verify sonar:sonar "-Dsonar.host.url=https://sonarcloud.io" -Dsonar.organization=sylvainjanet -Dsonar.projectKey=SylvainJanet_sampleJavaApp -Dsonar.java.source=1.8
             
   check_analysis_sonarcloud:
     needs: analysis_sonarcloud
@@ -148,8 +151,10 @@ jobs:
         java-version: '8'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn -B install
+    - name: Build with Maven 
+      env: 
+        JASYPT_ENCRYPTOR_PWD_DIST: ${{ secrets.JASYPT_ENCRYPTOR_PWD_DIST }}
+      run: mvn -Pprod -B install
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
@@ -161,7 +166,7 @@ jobs:
       uses: actions/upload-artifact@v3  
       with:  
         name: sample-java-app-${{ env.GITHUB_REF_SLUG }}-${{ github.run_id }}-${{ github.run_number }}  
-        path: ./target
+        path: ./target-prod
           
   deploy:  
     needs : [build]
