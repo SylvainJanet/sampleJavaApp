@@ -49,6 +49,10 @@ jobs:
         run: mysql --user=root --password=root
       - name: Create SQL user
         run: mysql --user=root --password=root --execute="CREATE USER 'sylvainjanet-staging-test'@'localhost' IDENTIFIED BY '${{ secrets.MYSQL_STAGING_TESTS }}';"
+      - name: Create database
+        run: mysql --user=root --password=root --execute="CREATE DATABASE testapp_staging_tests;"
+      - name: Grant privileges to user
+        run: mysql --user=root --password=root --execute="GRANT ALL PRIVILEGES ON testapp_staging_tests.* TO 'sylvainjanet-staging-test'@'localhost';"
       - name: List existing SQL databases
         run: mysql --user=root --password=root --execute="show databases;"
       - name: Checkout source code  
