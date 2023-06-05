@@ -46,8 +46,10 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
           cache: maven
-      - name: Test app  
-        run: mvn test
+      - name: Test app 
+        env: 
+          JASYPT_ENCRYPTOR_PWD_DIST: ${{ secrets.JASYPT_ENCRYPTOR_PWD_DIST }}
+        run: mvn -Pstaging test
         
   analysis_sonarcloud:
     needs: test
@@ -67,7 +69,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
-        run: mvn verify sonar:sonar "-Dsonar.host.url=https://sonarcloud.io" -Dsonar.organization=sylvainjanet -Dsonar.projectKey=SylvainJanet_sampleJavaApp -Dsonar.java.source=1.8
+          JASYPT_ENCRYPTOR_PWD_DIST: ${{ secrets.JASYPT_ENCRYPTOR_PWD_DIST }}
+        run: mvn -Pcoverage-staging verify sonar:sonar "-Dsonar.host.url=https://sonarcloud.io" -Dsonar.organization=sylvainjanet -Dsonar.projectKey=SylvainJanet_sampleJavaApp -Dsonar.java.source=1.8
             
   check_analysis_sonarcloud:
     needs: analysis_sonarcloud
@@ -158,8 +161,10 @@ jobs:
         java-version: '8'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn -B install
+    - name: Build with Maven 
+      env: 
+        JASYPT_ENCRYPTOR_PWD_DIST: ${{ secrets.JASYPT_ENCRYPTOR_PWD_DIST }}
+      run: mvn -B -Pstaging install
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
 #     - name: Update dependency graph
@@ -171,7 +176,7 @@ jobs:
       uses: actions/upload-artifact@v3  
       with:  
         name: sample-java-app-${{ env.GITHUB_REF_SLUG }}-${{ github.run_id }}-${{ github.run_number }}  
-        path: ./target-dev
+        path: ./target-staging
           
   deploy:  
     needs : [build]
@@ -188,7 +193,7 @@ jobs:
           path: '.'
       - name: rename war file
         run: |
-          mv test.backend-0.0.1-SNAPSHOT.war test-dev.war
+          mv test.backend-0.0.1-SNAPSHOT.war test-staging.war
       - name: copy file via ssh key
         uses: appleboy/scp-action@master
         with:
@@ -196,5 +201,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
-          source: "./test-dev.war"
+          source: "./test-staging.war"
           target: ${{secrets.TOMCAT_PATH}}
