@@ -47,6 +47,8 @@ jobs:
           done
       - name: Verify MySQL
         run: mysql --user=root --password=root
+      - name: Create SQL user
+        run: mysql --user=root --password=root --execute="CREATE USER 'sylvainjanet-staging-test'@'localhost' IDENTIFIED BY '${{ secrets.MYSQL_STAGING_TESTS }}';"
       - name: List existing SQL databases
         run: mysql --user=root --password=root --execute="show databases;"
       - name: Checkout source code  
