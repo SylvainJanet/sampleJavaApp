@@ -258,7 +258,7 @@ jobs:
           path: '.'
       - name: rename war file
         run: |
-          mv test.backend-0.0.1-SNAPSHOT.war test-staging.war
+          mv test.backend-0.0.1-SNAPSHOT.war test-dev.war
       - name: copy file via ssh key
         uses: appleboy/scp-action@master
         with:
