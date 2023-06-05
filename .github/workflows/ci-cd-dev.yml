@@ -36,9 +36,7 @@ jobs:
           VALIDATE_JAVA: true
           
   test:
-    runs-on: ubuntu-latest  
-    env: 
-        MYSQL_STAGING_TESTS: ${{ secrets.MYSQL_STAGING_TESTS }}
+    runs-on: ubuntu-latest 
     steps: 
       - name: Start MySQL
         run: sudo service mysql restart
@@ -50,7 +48,7 @@ jobs:
       - name: Verify MySQL
         run: mysql --user=root --password=root
       - name: Create SQL user
-        run: mysql --user=root --password=root --execute="CREATE USER 'sylvainjanet-staging-test'@'localhost' IDENTIFIED BY $MYSQL_STAGING_TESTS ;"
+        run: mysql --user=root --password=root --execute="CREATE USER 'sylvainjanet-staging-test'@'localhost' IDENTIFIED BY  ${{ secrets.MYSQL_STAGING_TESTS }} ;"
       - name: Create database
         run: mysql --user=root --password=root --execute="CREATE DATABASE testapp_staging_tests;"
       - name: Grant privileges to user
@@ -58,7 +56,7 @@ jobs:
       - name: List existing SQL databases
         run: mysql --user=root --password=root --execute="show databases;"
       - name: Verify MySQL user
-        run: mysql --user=root --password=$MYSQL_STAGING_TESTS
+        run: mysql --user=root --password= ${{ secrets.MYSQL_STAGING_TESTS }}
       - name: Checkout source code  
         uses: actions/checkout@v3
       - name: Set up JDK 8
