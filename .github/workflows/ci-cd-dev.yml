@@ -51,6 +51,9 @@ jobs:
           mysql root password: rootisntused # Required if "mysql user" is empty, default is empty. The root superuser password
           mysql user: 'sylvainjanet-staging-test' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
           mysql password: ${{ secrets.MYSQL_STAGING_TESTS }} # Required if "mysql user" exists. The password for the "mysql user"
+      
+      - name: Start MySQL
+        run: sudo service mysql restart
       - name: Checkout source code  
         uses: actions/checkout@v3
       - name: Set up JDK 8
