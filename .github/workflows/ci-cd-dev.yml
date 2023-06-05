@@ -61,9 +61,9 @@ jobs:
             sleep 1
           done
       - name: Verify MySQL
-        run: mysql --user=root --password=test
+        run: mysql --user='root' --password='test'
       - name: List existing SQL databases
-        run: mysql --user=root --password=test --execute="show databases;"
+        run: mysql --user='root' --password='test' --execute="show databases;"
       - name: Checkout source code  
         uses: actions/checkout@v3
       - name: Set up JDK 8
