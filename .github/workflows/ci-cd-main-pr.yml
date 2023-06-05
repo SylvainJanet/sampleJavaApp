@@ -145,5 +145,5 @@ jobs:
       uses: actions/upload-artifact@v3  
       with:  
         name: sample-java-app-${{ env.GITHUB_REF_SLUG }}-${{ github.run_id }}-${{ github.run_number }}  
-        path: ./target
+        path: ./target-prod
         
