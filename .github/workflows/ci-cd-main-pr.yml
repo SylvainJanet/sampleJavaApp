@@ -97,7 +97,7 @@ jobs:
       - name: Check existing users
         run: mysql --user=root --password=root --execute="SELECT user FROM mysql. user"
       - name: Verify MySQL user
-        run: mysql --user=sylvainjanet-staging-test --password=${{ secrets.MYSQL_PROD_TESTS }}
+        run: mysql --user=sylvainjanet-prod-test --password=${{ secrets.MYSQL_PROD_TESTS }}
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis'
@@ -194,7 +194,7 @@ jobs:
       - name: Check existing users
         run: mysql --user=root --password=root --execute="SELECT user FROM mysql. user"
       - name: Verify MySQL user
-        run: mysql --user=sylvainjanet-staging-test --password=${{ secrets.MYSQL_PROD_TESTS }}
+        run: mysql --user=sylvainjanet-prod-test --password=${{ secrets.MYSQL_PROD_TESTS }}
       - name: Checkout source code  
         uses: actions/checkout@v3
       - name: Set up JDK 8
