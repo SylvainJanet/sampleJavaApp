@@ -8,8 +8,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 /**
- * The EntityManager is a core interface of JPA that provides an interface
- * to interact with entities and the database.
+ * The EntityManager is a core interface of JPA that provides an interface to
+ * interact with entities and the database.
  * 
  * @author Sylvain
  *

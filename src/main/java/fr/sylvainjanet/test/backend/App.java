@@ -66,7 +66,6 @@ public class App extends SpringBootServletInitializer {
   @GetMapping("/hello")
   @ResponseBody
   String home() {
-    System.out.println("HELLO");
     return "Hello World ! - " + environment;
   }
 
@@ -76,10 +75,10 @@ public class App extends SpringBootServletInitializer {
    * @param content the content to put
    * @return a confirmation message
    */
-  @PutMapping("/add-message")
+  @PutMapping(path = "/add-message", produces = "text/plain")
   @ResponseBody
-  String addMessage(@RequestParam(required = false) final String content) {
-    System.out.println("ADD MESSAGE");
+  String addMessage(@RequestParam(required = true) final String content) {
+
     repository.save(new Message(content));
     return "message \"" + content + "\" added.";
   }

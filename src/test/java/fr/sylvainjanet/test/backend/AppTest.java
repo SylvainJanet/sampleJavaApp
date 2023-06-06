@@ -1,11 +1,13 @@
 package fr.sylvainjanet.test.backend;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,7 +44,6 @@ class AppTest {
    */
   @Test
   void testHello() throws Exception {
-    System.out.println("TEST HELLO");
     this.mockMvc.perform(get("/hello")).andDo(print())
         .andExpect(status().isOk())
         .andExpect(content().string(equalTo("Hello World ! - " + environment)));
@@ -55,10 +56,9 @@ class AppTest {
    */
   @Test
   void testAddMessage() throws Exception {
-    System.out.println("TEST ADD MESSAGE");
     String content = "Test de l'application";
-    this.mockMvc.perform(put("/add-message?content=" + content)).andDo(print())
-        .andExpect(status().isOk()).andExpect(
+    this.mockMvc.perform(put("/add-message?content=" + content).with(csrf()))
+        .andDo(print()).andExpect(status().isOk()).andExpect(
             content().string(equalTo("message \"" + content + "\" added.")));
   }
 }

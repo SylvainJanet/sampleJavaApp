@@ -6,7 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import fr.sylvainjanet.test.backend.config.Configuration;
+
+import fr.sylvainjanet.test.backend.config.ConfigurationParams;
 
 /**
  * Message. https://www.baeldung.com/jpa-entities
@@ -19,7 +20,7 @@ import fr.sylvainjanet.test.backend.config.Configuration;
 // Entity is object-oriented and table is relation-oriented.
 // You can only use the entity name in the HQL (Hibernate Query Language)
 // to query objects, and the table
-// name in the native SQL.
+// name in the native SQL. 
 @Entity(name = "message")
 @Table(name = "message")
 public class Message {
@@ -44,7 +45,7 @@ public class Message {
   /**
    * The content.
    */
-  @Column(name = "message_content", length = Configuration.MAX_STR_SIZE,
+  @Column(name = "message_content", length = ConfigurationParams.MAX_STR_SIZE,
       nullable = false, unique = false)
   private String content;
 
@@ -83,6 +84,5 @@ public class Message {
   public void setId(final Long id) {
     this.id = id;
   }
-
 
 }
