@@ -73,7 +73,7 @@ jobs:
         run: mvn -Pprod test
         
   analysis_sonarcloud:
-    needs: test
+    #needs: test
     name: SonarCloud Analysis
     runs-on: ubuntu-latest
     steps:
@@ -169,7 +169,7 @@ jobs:
         category: "/language:${{matrix.language}}"
   
   build:
-    needs: [lint, analyse_QL, check_analysis_sonarcloud]
+    #needs: [lint, analyse_QL, check_analysis_sonarcloud]
     runs-on: ubuntu-latest
     permissions: # The Dependency Submission API requires write permission
       contents: write
