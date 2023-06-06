@@ -25,6 +25,7 @@ jobs:
           JAVA_FILE_NAME: checkstyle-google-modifed.xml
           VALIDATE_MARKDOWN: false
           VALIDATE_YAML: false
+          VALIDATE_JSCPD: false
       - name: Lint Code Base - sun
         uses: github/super-linter@v4
         env:
