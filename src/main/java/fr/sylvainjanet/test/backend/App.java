@@ -8,6 +8,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -75,12 +77,13 @@ public class App extends SpringBootServletInitializer {
    * @param content the content to put
    * @return a confirmation message
    */
-  @ResponseBody
   @PutMapping(path = "/add-message", produces = "text/plain")
-  String addMessage(@RequestParam(required = true) final String content) {
+  ResponseEntity<String> addMessage(
+      @RequestParam(required = true) final String content) {
 
     repository.save(new Message(content));
-    return "message \"" + content + "\" added.";
+    return new ResponseEntity<>("message \"" + content + "\" added.",
+        HttpStatus.OK);
   }
 
   /**
