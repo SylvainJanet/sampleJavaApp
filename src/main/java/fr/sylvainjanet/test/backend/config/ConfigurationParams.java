@@ -1,6 +1,7 @@
 package fr.sylvainjanet.test.backend.config;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,7 +21,8 @@ public final class ConfigurationParams {
    * Origins allowed in prod environment.
    */
   public static final List<String> ORIGINS_ALLOWED_PROD =
-      Arrays.asList("https://sylvainjanet.fr", "https://dev.sylvainjanet.fr");
+      Collections.unmodifiableList(Arrays.asList("https://sylvainjanet.fr",
+          "https://dev.sylvainjanet.fr"));
 
   /**
    * Origins allowed in prod environment.
@@ -31,8 +33,9 @@ public final class ConfigurationParams {
   /**
    * Methods allowed in prod environment.
    */
-  public static final List<String> METHODS_ALLOWED_PROD = Arrays.asList("GET",
-      "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "DELETE");
+  public static final List<String> METHODS_ALLOWED_PROD =
+      Collections.unmodifiableList(Arrays.asList("GET", "POST", "PUT", "DELETE",
+          "OPTIONS", "PATCH", "DELETE"));
 
   /**
    * Methods allowed in dev environment.
@@ -42,8 +45,9 @@ public final class ConfigurationParams {
   /**
    * Headers allowed in prod environment.
    */
-  public static final List<String> HEADERS_ALLOWED_PROD = Arrays
-      .asList("authorization", "content-type", "x-auth-token", "X-XSRF-TOKEN");
+  public static final List<String> HEADERS_ALLOWED_PROD =
+      Collections.unmodifiableList(Arrays.asList("authorization",
+          "content-type", "x-auth-token", "X-XSRF-TOKEN"));
 
   /**
    * Headers allowed in dev environment.
@@ -53,8 +57,8 @@ public final class ConfigurationParams {
   /**
    * Exposed headers in prod environment.
    */
-  public static final List<String> EXPOSED_HEADERS_PROD =
-      Arrays.asList("x-auth-token", "X-XSRF-TOKEN");
+  public static final List<String> EXPOSED_HEADERS_PROD = Collections
+      .unmodifiableList(Arrays.asList("x-auth-token", "X-XSRF-TOKEN"));
 
   /**
    * Exposed headers in dev environment.

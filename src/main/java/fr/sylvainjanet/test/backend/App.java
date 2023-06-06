@@ -75,8 +75,8 @@ public class App extends SpringBootServletInitializer {
    * @param content the content to put
    * @return a confirmation message
    */
-  @PutMapping(path = "/add-message", produces = "text/plain")
   @ResponseBody
+  @PutMapping(path = "/add-message", produces = "text/plain")
   String addMessage(@RequestParam(required = true) final String content) {
 
     repository.save(new Message(content));
