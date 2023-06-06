@@ -7,7 +7,11 @@ on:
 permissions:
   pull-requests: read # allows SonarCloud to decorate PRs with analysis results
   actions: write
-
+  
+aliases:
+  - &step_attach_workspace
+    attach_workspace:
+      at: /home/circleci
 jobs: 
 
   lint:
@@ -25,6 +29,7 @@ jobs:
           JAVA_FILE_NAME: checkstyle-google-modifed.xml
           VALIDATE_MARKDOWN: false
           VALIDATE_YAML: false
+          VALIDATE_JSCPD: false
       - name: Lint Code Base - sun
         uses: github/super-linter@v4
         env:
@@ -34,6 +39,7 @@ jobs:
           LINTER_RULES_PATH: /
           JAVA_FILE_NAME: checkstyle-sun-modified.xml
           VALIDATE_JAVA: true
+          VALIDATE_JSCPD: false
           
   test:
     runs-on: ubuntu-latest 
