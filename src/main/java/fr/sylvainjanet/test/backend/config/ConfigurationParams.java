@@ -66,6 +66,12 @@ public final class ConfigurationParams {
    */
   public static final List<String> EXPOSED_HEADERS_DEV = EXPOSED_HEADERS_PROD;
 
+  /**
+   * Max age of preflight cache. https://netbasal.com/
+   * reduce-response-latency-by-caching-preflight-requests-2c450b6f9cb6
+   */
+  public static final Long MAX_AGE_PREFLIGHT_CACHE = 7200L;
+
   private ConfigurationParams() {
 
   }

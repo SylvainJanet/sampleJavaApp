@@ -56,6 +56,7 @@ public class WebSecurityConfig {
     corsConfig.setAllowedHeaders(ConfigurationParams.HEADERS_ALLOWED_PROD);
     corsConfig.setExposedHeaders(ConfigurationParams.EXPOSED_HEADERS_PROD);
     corsConfig.setAllowCredentials(true);
+    corsConfig.setMaxAge(ConfigurationParams.MAX_AGE_PREFLIGHT_CACHE);
 
     if (environment.equals("dev") || environment.equals("coverage-dev")) {
       corsConfig.setAllowedOrigins(ConfigurationParams.ORIGINS_ALLOWED_DEV);
@@ -63,6 +64,7 @@ public class WebSecurityConfig {
       corsConfig.setAllowedHeaders(ConfigurationParams.HEADERS_ALLOWED_DEV);
       corsConfig.setExposedHeaders(ConfigurationParams.EXPOSED_HEADERS_DEV);
       corsConfig.setAllowCredentials(true);
+      corsConfig.setMaxAge(ConfigurationParams.MAX_AGE_PREFLIGHT_CACHE);
     }
 
     UrlBasedCorsConfigurationSource source =
