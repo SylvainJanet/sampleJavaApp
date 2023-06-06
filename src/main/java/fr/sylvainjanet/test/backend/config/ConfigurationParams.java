@@ -28,7 +28,8 @@ public final class ConfigurationParams {
    * Origins allowed in prod environment.
    */
   public static final List<String> ORIGINS_ALLOWED_DEV =
-      Arrays.asList("http://localhost:4200/", "https://dev.sylvainjanet.fr");
+      Collections.unmodifiableList(Arrays.asList("http://localhost:4200/",
+          "https://dev.sylvainjanet.fr"));
 
   /**
    * Methods allowed in prod environment.

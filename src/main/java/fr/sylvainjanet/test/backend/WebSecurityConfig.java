@@ -82,7 +82,6 @@ public class WebSecurityConfig {
   SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
     http.cors().configurationSource(corsConfiguration()).and()
         .authorizeRequests().anyRequest().anonymous().and().csrf()
-        // .disable();
         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     // https://www.baeldung.com/spring-security-csrf
 
