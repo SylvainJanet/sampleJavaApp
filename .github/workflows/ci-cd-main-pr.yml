@@ -70,7 +70,7 @@ jobs:
       - name: Test app   
         env: 
           JASYPT_ENCRYPTOR_PWD_DIST: ${{ secrets.JASYPT_ENCRYPTOR_PWD_DIST }}
-        run: mvn -Pcoverage-prod test
+        run: mvn -Pprod test
         
   analysis_sonarcloud:
     needs: test
