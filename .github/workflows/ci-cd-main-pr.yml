@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Checkout source code  
         uses: actions/checkout@v3
-      - name: Lint Code Base
+      - name: Lint Code Base - google
         uses: github/super-linter@v4
         env:
           VALIDATE_ALL_CODEBASE: true
@@ -48,17 +48,17 @@ jobs:
       - name: Verify MySQL
         run: mysql --user=root --password=root
       - name: Create SQL user
-        run: mysql --user=root --password=root --execute="CREATE USER 'sylvainjanet-prod-test'@'localhost' IDENTIFIED BY '${{ secrets.MYSQL_PROD_TESTS }}';"
+        run: mysql --user=root --password=root --execute="CREATE USER 'sylvainjanet-prod-tests'@'localhost' IDENTIFIED BY '${{ secrets.MYSQL_PROD_TESTS }}';"
       - name: Create database
         run: mysql --user=root --password=root --execute="CREATE DATABASE testapp_prod_tests CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;"
       - name: Grant privileges to user
-        run: mysql --user=root --password=root --execute="GRANT ALL PRIVILEGES ON testapp_prod_tests.* TO 'sylvainjanet-prod-test'@'localhost';"
+        run: mysql --user=root --password=root --execute="GRANT ALL PRIVILEGES ON testapp_prod_tests.* TO 'sylvainjanet-prod-tests'@'localhost';"
       - name: List existing SQL databases
         run: mysql --user=root --password=root --execute="show databases;"
       - name: Check existing users
         run: mysql --user=root --password=root --execute="SELECT user FROM mysql. user"
       - name: Verify MySQL user
-        run: mysql --user=sylvainjanet-prod-test --password=${{ secrets.MYSQL_PROD_TESTS }}
+        run: mysql --user=sylvainjanet-prod-tests --password=${{ secrets.MYSQL_PROD_TESTS }}
       - name: Checkout source code  
         uses: actions/checkout@v3
       - name: Set up JDK 8
@@ -73,7 +73,7 @@ jobs:
         run: mvn -Pprod test
         
   analysis_sonarcloud:
-    #needs: test
+    needs: test
     name: SonarCloud Analysis
     runs-on: ubuntu-latest
     steps:
@@ -87,17 +87,17 @@ jobs:
       - name: Verify MySQL
         run: mysql --user=root --password=root
       - name: Create SQL user
-        run: mysql --user=root --password=root --execute="CREATE USER 'sylvainjanet-prod-test'@'localhost' IDENTIFIED BY '${{ secrets.MYSQL_PROD_TESTS }}';"
+        run: mysql --user=root --password=root --execute="CREATE USER 'sylvainjanet-prod-tests'@'localhost' IDENTIFIED BY '${{ secrets.MYSQL_PROD_TESTS }}';"
       - name: Create database
         run: mysql --user=root --password=root --execute="CREATE DATABASE testapp_prod_tests CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;"
       - name: Grant privileges to user
-        run: mysql --user=root --password=root --execute="GRANT ALL PRIVILEGES ON testapp_prod_tests.* TO 'sylvainjanet-prod-test'@'localhost';"
+        run: mysql --user=root --password=root --execute="GRANT ALL PRIVILEGES ON testapp_prod_tests.* TO 'sylvainjanet-prod-tests'@'localhost';"
       - name: List existing SQL databases
         run: mysql --user=root --password=root --execute="show databases;"
       - name: Check existing users
         run: mysql --user=root --password=root --execute="SELECT user FROM mysql. user"
       - name: Verify MySQL user
-        run: mysql --user=sylvainjanet-prod-test --password=${{ secrets.MYSQL_PROD_TESTS }}
+        run: mysql --user=sylvainjanet-prod-tests --password=${{ secrets.MYSQL_PROD_TESTS }}
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis'
@@ -169,7 +169,7 @@ jobs:
         category: "/language:${{matrix.language}}"
   
   build:
-    #needs: [lint, analyse_QL, check_analysis_sonarcloud]
+    needs: [lint, analyse_QL, check_analysis_sonarcloud]
     runs-on: ubuntu-latest
     permissions: # The Dependency Submission API requires write permission
       contents: write
@@ -184,17 +184,17 @@ jobs:
       - name: Verify MySQL
         run: mysql --user=root --password=root
       - name: Create SQL user
-        run: mysql --user=root --password=root --execute="CREATE USER 'sylvainjanet-prod-test'@'localhost' IDENTIFIED BY '${{ secrets.MYSQL_PROD_TESTS }}';"
+        run: mysql --user=root --password=root --execute="CREATE USER 'sylvainjanet-prod-tests'@'localhost' IDENTIFIED BY '${{ secrets.MYSQL_PROD_TESTS }}';"
       - name: Create database
         run: mysql --user=root --password=root --execute="CREATE DATABASE testapp_prod_tests CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;"
       - name: Grant privileges to user
-        run: mysql --user=root --password=root --execute="GRANT ALL PRIVILEGES ON testapp_prod_tests.* TO 'sylvainjanet-prod-test'@'localhost';"
+        run: mysql --user=root --password=root --execute="GRANT ALL PRIVILEGES ON testapp_prod_tests.* TO 'sylvainjanet-prod-tests'@'localhost';"
       - name: List existing SQL databases
         run: mysql --user=root --password=root --execute="show databases;"
       - name: Check existing users
         run: mysql --user=root --password=root --execute="SELECT user FROM mysql. user"
       - name: Verify MySQL user
-        run: mysql --user=sylvainjanet-prod-test --password=${{ secrets.MYSQL_PROD_TESTS }}
+        run: mysql --user=sylvainjanet-prod-tests --password=${{ secrets.MYSQL_PROD_TESTS }}
       - name: Checkout source code  
         uses: actions/checkout@v3
       - name: Set up JDK 8
