@@ -1,0 +1,9 @@
+google
+
+${org.checkstyle.google.suppressionxpathfilter.config} : checkstyle-xpath-suppressions.xml
+${org.checkstyle.google.suppressionfilter.config} : checkstyle-suppressions.xml
+
+sun
+
+${org.checkstyle.sun.suppressionxpathfilter.config} : checkstyle-xpath-suppressions.xml
+${org.checkstyle.sun.suppressionfilter.config} : checkstyle-suppressions.xml

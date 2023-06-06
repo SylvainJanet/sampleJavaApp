@@ -1,8 +1,12 @@
 HELP.md
 target/
-target-coverage/
+target-coverage-dev/
 target-dev/
-target-prod/
+target-coverage-staging/
+target-staging/
+target-coverage-staging/
+target-staging/
+target-update-db-struct/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

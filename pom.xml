@@ -19,6 +19,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<exec.mainClass>fr.sylvainjanet.test.backend.App</exec.mainClass>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -42,10 +43,26 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://github.com/ulisesbocchio/jasypt-spring-boot -->
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>3.0.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -74,6 +91,11 @@
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.8.0</version>
+					<configuration>
+						<testExcludes>
+							<testExclude>**/package-info.java</testExclude>
+						</testExcludes>
+					</configuration>
 				</plugin>
 				<plugin>
 					<artifactId>maven-surefire-plugin</artifactId>
@@ -100,18 +122,31 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-checkstyle-plugin</artifactId>
 					<version>2.17</version>
-					<configuration>
-						<configLocation>google_checks.xml</configLocation>
-					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.7</version>
+				</plugin>
+				<plugin>
+					<groupId>com.github.ulisesbocchio</groupId>
+					<artifactId>jasypt-maven-plugin</artifactId>
+					<version>3.0.5</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
 	</build>
 	<reporting>
 		<plugins>
@@ -149,15 +184,129 @@
 			</build>
 		</profile>
 		<profile>
-			<id>coverage</id>
+			<id>staging</id>
 			<properties>
-				<activatedProperties>coverage</activatedProperties>
+				<activatedProperties>staging</activatedProperties>
 				<sonar.coverage.jacoco.xmlReportPaths>
-    				${project.basedir}/target-coverage/site/jacoco/jacoco.xml
+    				${project.basedir}/target-staging/site/jacoco/jacoco.xml
   				</sonar.coverage.jacoco.xmlReportPaths>
 			</properties>
 			<build>
-				<directory>${project.basedir}/target-coverage</directory>
+				<directory>${project.basedir}/target-staging</directory>
+			</build>
+		</profile>
+		<profile>
+			<id>depGraph</id>
+			<properties>
+				<activatedProperties>depGraph</activatedProperties>
+				<sonar.coverage.jacoco.xmlReportPaths>
+    				${project.basedir}/target/site/jacoco/jacoco.xml
+  				</sonar.coverage.jacoco.xmlReportPaths>
+			</properties>
+			<build>
+				<directory>${project.basedir}/target</directory>
+			</build>
+		</profile>
+		<profile>
+			<id>update-db-struct</id>
+			<properties>
+				<activatedProperties>update-db-struct</activatedProperties>
+				<sonar.coverage.jacoco.xmlReportPaths>
+    				${project.basedir}/target-update-db-struct/site/jacoco/jacoco.xml
+  				</sonar.coverage.jacoco.xmlReportPaths>
+			</properties>
+			<build>
+				<directory>${project.basedir}/target-update-db-struct</directory>
+			</build>
+		</profile>
+		<profile>
+			<id>coverage-dev</id>
+			<properties>
+				<activatedProperties>coverage-dev</activatedProperties>
+				<sonar.coverage.jacoco.xmlReportPaths>
+    				${project.basedir}/target-coverage-dev/site/jacoco/jacoco.xml
+  				</sonar.coverage.jacoco.xmlReportPaths>
+			</properties>
+			<build>
+				<directory>${project.basedir}/target-coverage-dev</directory>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>0.8.7</version>
+						<executions>
+							<execution>
+								<id>prepare-agent</id>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>report</id>
+								<phase>test</phase>
+								<goals>
+									<goal>report</goal>
+								</goals>
+								<configuration>
+									<formats>
+										<format>XML</format>
+									</formats>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>coverage-staging</id>
+			<properties>
+				<activatedProperties>coverage-staging</activatedProperties>
+				<sonar.coverage.jacoco.xmlReportPaths>
+    				${project.basedir}/target-coverage-staging/site/jacoco/jacoco.xml
+  				</sonar.coverage.jacoco.xmlReportPaths>
+			</properties>
+			<build>
+				<directory>${project.basedir}/target-coverage-staging</directory>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>0.8.7</version>
+						<executions>
+							<execution>
+								<id>prepare-agent</id>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>report</id>
+								<phase>test</phase>
+								<goals>
+									<goal>report</goal>
+								</goals>
+								<configuration>
+									<formats>
+										<format>XML</format>
+									</formats>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>coverage-prod</id>
+			<properties>
+				<activatedProperties>coverage-prod</activatedProperties>
+				<sonar.coverage.jacoco.xmlReportPaths>
+    				${project.basedir}/target-coverage-prod/site/jacoco/jacoco.xml
+  				</sonar.coverage.jacoco.xmlReportPaths>
+			</properties>
+			<build>
+				<directory>${project.basedir}/target-coverage-prod</directory>
 				<plugins>
 					<plugin>
 						<groupId>org.jacoco</groupId>
